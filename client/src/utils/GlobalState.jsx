@@ -1,3 +1,19 @@
+import globalSlice from './reducers'
+import { configureStore } from '@reduxjs/toolkit'
+
+
+// new using redux toolkit
+
+export const store = configureStore({
+  reducer: {
+    global: globalSlice
+  },
+})
+
+
+
+// old using context
+
 import { createContext, useContext, useReducer } from "react";
 import { reducer } from './reducers'
 

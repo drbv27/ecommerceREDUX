@@ -1,3 +1,59 @@
+
+// new using redux toolkit
+
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState = {}
+
+export const globalSlice = createSlice({
+  name: 'globalState',
+  initialState,
+  reducers: {
+    updateProducts: (state, action) => {
+      console.log({state})
+      console.log({action})
+      state.value = {
+        ...state,
+        products: [...action.payload],
+      };
+    },
+    addToCart: (state, action) => {
+      state.value = {
+        ...state,
+        cartOpen: true,
+        cart: [...state.cart, action.product],
+      }
+    },
+
+    addMultipleToCart: (state, action) => {
+      state.value = {
+        ...state,
+        cart: [...state.cart, ...action.products],
+      }
+    },
+
+    updateCartQuantity: (state, action) => {
+      state.value = {
+        ...state,
+        cartOpen: true,
+        cart: state.cart.map((product) => {
+          if (action._id === product._id) {
+            product.purchaseQuantity = action.purchaseQuantity;
+          }
+          return product;
+        }),
+      }
+    }
+  }
+})
+
+export const { updateProducts, addToCart, addMultipleToCart, updateCartQuantity } = globalSlice.actions
+
+export default globalSlice.reducer
+
+
+// old using context
+
 import {
   UPDATE_PRODUCTS,
   ADD_TO_CART,
